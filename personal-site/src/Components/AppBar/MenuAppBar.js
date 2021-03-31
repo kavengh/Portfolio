@@ -1,12 +1,11 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import BasicButtonGroup from "./BasicButtonGroup";
+import { Fab, AppBar, Toolbar, Grid } from "@material-ui/core";
+import { KeyboardArrowUp } from "@material-ui/icons";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Hidden from "@material-ui/core/Hidden";
+import useScrollTrigger from "@material-ui/core/useScrollTrigger";
+import BasicButtonGroup from "../AppBar/BasicButtonGroup";
+import ScrollToColor01 from "../../ScrollToChange";
+import BackToTop from "../../BackToTop";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
+    minHeight: "64px",
+    top: "auto",
+    bottom: 0,
   },
   title: {
     [theme.breakpoints.down("md")]: {
@@ -27,9 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 function ElevationScroll(props) {
   const { children } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -42,33 +41,33 @@ function ElevationScroll(props) {
 
 export default function ElevateAppBar(props) {
   const classes = useStyles();
-
   return (
     <React.Fragment>
       <ElevationScroll {...props}>
-        <AppBar>
-          <Toolbar className={classes.toolbar}>
-            <Grid container spacing={3}>
-              <Grid item xs>
-                <BasicButtonGroup
-                  className={classes.buttonGroup}
-                ></BasicButtonGroup>
-              </Grid>
-              <Hidden mdDown>
-                <Grid item xs>
-                  <Typography variant="h4" className={classes.title}>
-                    Kaven Vohra
-                  </Typography>
-                </Grid>
-              </Hidden>
-              <Hidden mdDown>
+        <ScrollToColor01>
+          <AppBar color="transparent" elevation={0}>
+            <Toolbar className={classes.toolbar}>
+              <Grid container spacing={3}>
                 <Grid item xs></Grid>
-              </Hidden>
-            </Grid>
-          </Toolbar>
-        </AppBar>
+
+                <Grid item xs>
+                  <BasicButtonGroup
+                    color="primary"
+                    className={classes.buttonGroup}
+                  ></BasicButtonGroup>
+                </Grid>
+
+                <Grid item xs></Grid>
+              </Grid>
+            </Toolbar>
+          </AppBar>
+        </ScrollToColor01>
       </ElevationScroll>
-      <Toolbar />
+      <BackToTop>
+        <Fab color="secondary" size="small" aria-label="scroll back to top">
+          <KeyboardArrowUp />
+        </Fab>
+      </BackToTop>
     </React.Fragment>
   );
 }
