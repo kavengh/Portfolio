@@ -39,7 +39,7 @@ function ElevationScroll(props) {
   });
 }
 
-export default function ElevateAppBar(props) {
+export default function MenuAppBar(props) {
   const classes = useStyles();
   return (
     <React.Fragment>
