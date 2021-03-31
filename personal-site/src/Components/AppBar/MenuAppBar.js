@@ -1,30 +1,27 @@
 import React from "react";
-import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
 import BasicButtonGroup from "./BasicButtonGroup";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
-import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  toolbar: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
   title: {
     [theme.breakpoints.down("md")]: {
       display: "none",
     },
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 }));
 
@@ -48,14 +45,14 @@ export default function ElevateAppBar(props) {
 
   return (
     <React.Fragment>
-      <CssBaseline />
-
       <ElevationScroll {...props}>
         <AppBar>
-          <Toolbar>
+          <Toolbar className={classes.toolbar}>
             <Grid container spacing={3}>
               <Grid item xs>
-                <BasicButtonGroup></BasicButtonGroup>
+                <BasicButtonGroup
+                  className={classes.buttonGroup}
+                ></BasicButtonGroup>
               </Grid>
               <Hidden mdDown>
                 <Grid item xs>
@@ -71,20 +68,7 @@ export default function ElevateAppBar(props) {
           </Toolbar>
         </AppBar>
       </ElevationScroll>
-
       <Toolbar />
-      <Container>
-        <Box my={2}>
-          {[...new Array(12)]
-            .map(
-              () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`
-            )
-            .join("\n")}
-        </Box>
-      </Container>
     </React.Fragment>
   );
 }
